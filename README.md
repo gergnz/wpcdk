@@ -2,14 +2,28 @@
 
 ARM/Graviton2 is the default CPU for database and application.
 
-|     EC2   |     RDS     |          CDK Deploy                |
-|-----------|-------------|-------------------------------------
-| c6.large  | db.m6.large |cdk deploy                          |
-| c6.large  | db.m5.large |DBCPU=INTEL cdk deploy              |
-| c5.large  | db.m6.large |APPCPU=INTEL cdk deploy             |
-| c5.large  | db.m5.large |APPCPU=INTEL DBCPU=INTEL cdk deploy |
-| c5a.large | db.m6.large |APPCPU=AMD cdk deploy               |
-| c5a.large | db.m5.large |APPCPU=AMD DBCPU=INTEL cdk deploy   |
+|     EC2   |      RDS     |          CDK Deploy                 |
+|-----------|--------------|-------------------------------------|
+| c6g.large | db.r6g.large | cdk deploy                          |
+| c6g.large | db.r5.large  | DBCPU=INTEL cdk deploy              |
+| c5.large  | db.r6g.large | APPCPU=INTEL cdk deploy             |
+| c5.large  | db.r5.large  | APPCPU=INTEL DBCPU=INTEL cdk deploy |
+| c5a.large | db.r6g.large | APPCPU=AMD cdk deploy               |
+| c5a.large | db.r5.large  | APPCPU=AMD DBCPU=INTEL cdk deploy   |
+
+For cleanliness, you should destroy and then deploy the stack each time.
+
+## Deploy
+Use the command above. It takes about 10-15 minutes to deploy.
+```
+cdk deploy --require-approval=never
+```
+
+## Destroy
+Destruction takes about 6-10 minutes.
+```
+cdk destroy --force
+```
 
 
 CDK Setup left for prosperity.
