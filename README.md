@@ -1,3 +1,19 @@
+# Basic Wordpress EC2 and RDS
+
+ARM/Graviton2 is the default CPU for database and application.
+
+|     EC2   |     RDS     |          CDK Deploy                |
+|-----------|-------------|-------------------------------------
+| c6.large  | db.m6.large |cdk deploy                          |
+| c6.large  | db.m5.large |DBCPU=INTEL cdk deploy              |
+| c5.large  | db.m6.large |APPCPU=INTEL cdk deploy             |
+| c5.large  | db.m5.large |APPCPU=INTEL DBCPU=INTEL cdk deploy |
+| c5a.large | db.m6.large |APPCPU=AMD cdk deploy               |
+| c5a.large | db.m5.large |APPCPU=AMD DBCPU=INTEL cdk deploy   |
+
+
+CDK Setup left for prosperity.
+
 
 # Welcome to your CDK Python project!
 
