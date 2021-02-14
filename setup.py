@@ -9,17 +9,20 @@ setuptools.setup(
     name="wpcdk",
     version="0.0.1",
 
-    description="An empty CDK Python app",
-    long_description=long_description,
+    description="Basic Wordpress Setup",
+    long_description=description,
     long_description_content_type="text/markdown",
 
-    author="author",
+    author="gergnz",
 
     package_dir={"": "wpcdk"},
     packages=setuptools.find_packages(where="wpcdk"),
 
     install_requires=[
-        "aws-cdk.core==1.56.0",
+        "aws-cdk.core====1.74.0",
+        "aws-cdk.aws-ec2==1.74.0",
+        "aws-cdk.aws-rds==1.74.0",
+        "aws-cdk.aws-secretsmanager==1.74.0",
     ],
 
     python_requires=">=3.6",
