@@ -26,6 +26,11 @@ class WpcdkStack(Stack):
             )
 
         if 'APPCPU' in os.environ:
+            if os.environ.get('APPCPU') == 'ARMv3':
+                app_instance_type = ec2.InstanceType.of(
+                        ec2.InstanceClass.COMPUTE7_GRAVITON3,
+                        ec2.InstanceSize.LARGE,
+                    )
             if os.environ.get('APPCPU') == 'INTEL':
                 machine_image = ec2.MachineImage.latest_amazon_linux(
                         generation=ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
@@ -79,7 +84,7 @@ class WpcdkStack(Stack):
             vpc=vpc,
             vpc_subnets=ec2.SubnetSelection(one_per_az=True, subnet_type=ec2.SubnetType.PUBLIC),
             availability_zone=vpc.availability_zones[0],
-            key_name="gjc",
+            key_name=os.environ.get('KEYNAME', 'gjc'),
             user_data_causes_replacement=True
                 )
 
