@@ -1,12 +1,13 @@
-from aws_cdk import core
+import os
+from constructs import Construct
+from aws_cdk import Stack, RemovalPolicy, CfnOutput
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_rds as rds
 from aws_cdk import aws_iam as iam
-import os
 
-class WpcdkStack(core.Stack):
+class WpcdkStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
 
         # default is to use graviton CPUs
         machine_image = ec2.MachineImage.latest_amazon_linux(
@@ -67,8 +68,8 @@ class WpcdkStack(core.Stack):
             vpc=vpc,
             availability_zone=vpc.availability_zones[0],
             instance_type=db_instance_type,
-            removal_policy=core.RemovalPolicy.DESTROY,
-            vpc_subnets=ec2.SubnetSelection(one_per_az=True, subnet_type=ec2.SubnetType.ISOLATED),
+            removal_policy=RemovalPolicy.DESTROY,
+            vpc_subnets=ec2.SubnetSelection(one_per_az=True, subnet_type=ec2.SubnetType.PRIVATE_ISOLATED),
             deletion_protection=False
             )
 
@@ -127,7 +128,7 @@ curl "http://$(curl http://ipv4.icanhazip.com)/wordpress/wp-admin/install.php?st
         )
 # oKdy7!2cVumXZLzW8)
 
-        core.CfnOutput(self, "output",
+        CfnOutput(self, "output",
                 description="URL",
                 value="http://"+app.instance_public_ip+"/wordpress/"
                 )
